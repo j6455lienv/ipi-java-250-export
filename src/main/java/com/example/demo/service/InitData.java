@@ -18,10 +18,10 @@ public class InitData {
     private EntityManager em;
 
     public void insertTestData() {
-        Client client1 = newClient("PETRI;LLO", "Alexandre");
+        Client client1 = newClient("VE;NET", "Julien");
         em.persist(client1);
 
-        Client client2 = newClient("Dupont", "Jérome");
+        Client client2 = newClient("MARTIN", "Martin");
         em.persist(client2);
 
         Article article1 = newArticle("Carte mère ASROCK 2345", 79.90);
