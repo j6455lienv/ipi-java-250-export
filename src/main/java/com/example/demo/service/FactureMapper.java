@@ -26,6 +26,10 @@ public class FactureMapper {
         return factureDTO;
     }
 
+//    public Facture map(Facture f){
+//
+//    }
+
     private LigneFactureDTO mapLigneFacture(LigneFacture lf) {
         LigneFactureDTO ligneFactureDTO = new LigneFactureDTO();
         ligneFactureDTO.setDesignation(lf.getArticle().getLibelle());

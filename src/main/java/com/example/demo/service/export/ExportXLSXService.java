@@ -1,13 +1,14 @@
 package com.example.demo.service.export;
 
 import com.example.demo.dto.ClientDTO;
+import com.example.demo.dto.FactureDTO;
+import com.example.demo.dto.LigneFactureDTO;
 import com.example.demo.entity.Facture;
-import com.example.demo.repository.FactureRepository;
+import com.example.demo.entity.LigneFacture;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -41,7 +42,48 @@ public class ExportXLSXService {
         workbook.close();
     }
 
-    public void export2(OutputStream os, List<ClientDTO> clients) throws IOException {
-        //List<Facture> facts = facture;
+    public void export2(OutputStream os, List<FactureDTO> facts) throws IOException {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        //LigneFactureDTO factsDTO = (LigneFactureDTO)facts;
+
+        for (FactureDTO facture : facts) {
+            XSSFSheet sheet = workbook.createSheet("Facture" + facture.getId());
+            XSSFRow headerRow = sheet.createRow(0);
+            XSSFCell celldesignation = headerRow.createCell(0);
+            celldesignation.setCellValue("désignation");
+            XSSFCell cellQuantite = headerRow.createCell(1);
+            cellQuantite.setCellValue("quantité");
+            XSSFCell cellPrixUn = headerRow.createCell(2);
+            cellPrixUn.setCellValue("prixUnitaire");
+            XSSFCell cellPrixLine = headerRow.createCell(3);
+            cellPrixLine.setCellValue("prixLigne");
+
+            int total = 0;
+
+
+            int i = 1;
+            for (LigneFactureDTO factsDTO : facture.getLigneFactures()) {
+                XSSFRow rowl = sheet.createRow(i);
+                XSSFCell cellDes = rowl.createCell(0);
+                cellDes.setCellValue(factsDTO.getDesignation());
+                XSSFCell cellQuanti = rowl.createCell(1);
+                cellQuanti.setCellValue(factsDTO.getQuantite());
+                XSSFCell cellpu = rowl.createCell(2);
+                cellpu.setCellValue(factsDTO.getPrixUnitaire());
+                XSSFCell cellpl = rowl.createCell(3);
+                cellpl.setCellValue(factsDTO.getPrixUnitaire() * factsDTO.getQuantite());
+                total += factsDTO.getPrixUnitaire() * factsDTO.getQuantite();
+                i++;
+            }
+            XSSFRow rowTotal = sheet.createRow(i);
+            XSSFCell cellTotName = rowTotal.createCell(0);
+            cellTotName.setCellValue("Total");
+            XSSFCell cellTotVal = rowTotal.createCell(0);
+            cellTotVal.setCellValue(total);
+
+
+        }
+        workbook.write(os);
+        workbook.close();
     }
 }

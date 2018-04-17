@@ -4,6 +4,8 @@ import com.example.demo.dto.ClientDTO;
 import com.example.demo.dto.FactureDTO;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,16 +27,6 @@ public class Client {
     public Long getId() {
         return id;
     }
-
-    public Set<FactureDTO> getFactures() {
-        return factures;
-    }
-
-    public void setFactures(Set<FactureDTO> factures) {
-        this.factures = factures;
-    }
-
-    private Set<FactureDTO> factures;
 
     public void setId(Long id) {
         this.id = id;
