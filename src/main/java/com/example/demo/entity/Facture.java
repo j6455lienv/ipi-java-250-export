@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.ClientDTO;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +21,16 @@ public class Facture {
 
     @OneToMany(mappedBy = "facture")
     private Set<LigneFacture> ligneFactures = new HashSet<>();
+
+    private Set<ClientDTO> clients;
+
+    public Set<ClientDTO> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<ClientDTO> clients) {
+        this.clients = clients;
+    }
 
     public Long getId() {
         return id;

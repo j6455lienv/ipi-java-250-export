@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ClientDTO;
 import com.example.demo.dto.FactureDTO;
+import com.example.demo.entity.Client;
+import com.example.demo.entity.Facture;
+import com.example.demo.repository.ClientRepository;
+import com.example.demo.repository.FactureRepository;
 import com.example.demo.service.ClientService;
 import com.example.demo.service.FactureService;
 import com.example.demo.service.export.ExportCSVService;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controlleur pour réaliser les exports
@@ -41,6 +46,12 @@ public class ExportController {
     @Autowired
     private ExportPDFITextService exportPDFITextService;
 
+    @Autowired
+    private FactureRepository factureRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
     @GetMapping("/clients/csv")
     public void clientsCSV(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
@@ -61,6 +72,9 @@ public class ExportController {
     public void facturesDUnClient(@PathVariable("id") Long clientId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + ".xlsx\"");
+//        ClientDTO clientDTO = clientService.findById(clientId);
+        Optional<Client> client = clientRepository.findById(clientId);
+//        List<Facture> facts = factureRepository.findAllByClient((Client) client);
     }
 
 
