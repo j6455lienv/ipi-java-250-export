@@ -3,18 +3,14 @@ package com.example.demo.service.export;
 import com.example.demo.dto.ClientDTO;
 import com.example.demo.dto.FactureDTO;
 import com.example.demo.dto.LigneFactureDTO;
-import com.example.demo.entity.Facture;
-import com.example.demo.entity.LigneFacture;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-
 
 @Service
 public class ExportXLSXService {
@@ -80,8 +76,6 @@ public class ExportXLSXService {
             cellTotName.setCellValue("Total");
             XSSFCell cellTotVal = rowTotal.createCell(0);
             cellTotVal.setCellValue(total);
-
-
         }
         workbook.write(os);
         workbook.close();
