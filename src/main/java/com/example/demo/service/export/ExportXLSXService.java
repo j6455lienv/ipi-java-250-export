@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class ExportXLSXService {
 
-
     public void export(OutputStream os, List<ClientDTO> clients) throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("clients");

@@ -36,8 +36,8 @@ public class FactureService {
         List<Facture> factures = factureRepository.findAllByClientId(id);
         List<FactureDTO> factureDTOs = new ArrayList<FactureDTO>();
 
-        if(factures.size() >0) {
-            for(Facture facture : factures) {
+        if (factures.size() > 0) {
+            for (Facture facture : factures) {
                 factureDTOs.add(factureRepository.findById(facture.getId())
                         .map(factureMapper::map)
                         .orElseThrow(() ->
